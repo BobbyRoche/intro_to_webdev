@@ -1,0 +1,87 @@
+<html>
+<!--Robert Roche's Fibonacci Sequence HTML/Javascript Page-->
+<head>
+	<title> Fibonacci Numbers </title>
+</head>
+<body>
+
+<!--Brief history of the fibonacci sequence-->
+
+<h1>The Fibonacci Sequence </h1>
+<p>
+The Fibonacci Sequence or Fibonacci Numbers are a sequence of numbers in which each number is denoted by the sum of the two numbers before it beginning at zero and one. The first few numbers in the sequence are 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, etc... Named after an Italian mathematician the fibonacci sequence has been in use since about 200 B.C. 
+It was used to try and enumerate patterns in poetry and has found many uses since then, especially in computer science. 
+It is even used as a data structure, and search technique! This formula has popped up in so many instances that there is an entire journal dedicated to the mystery of the Fibonacci Sequence. For more information visit <a href= "https://en.wikipedia.org/wiki/Fibonacci_number#History"> The Fibonacci Wiki </a>
+</p>
+<br>
+<br>
+<!--Image showing how it works-->
+
+<img src = "https://botanicamathematica.files.wordpress.com/2014/04/fibonacci-tree.png" width="500px" height="400px">
+
+<!--Input text box when the button is clicked calc function is called-->
+
+<input type="text" id="fib"/>
+<button onclick="calc()">Submit</button>
+
+<div id="display"> </div>
+
+<script>
+function calc ()
+{  
+    var var1 = 0;	//basic variables necessary for calculations
+    var var2 = 1;
+    var var3;
+    var num = parseInt(document.getElementById("fib").value); //gets the text box value and converts to an int
+
+    
+    if (num>=0 && !(isNaN(num)))	//checks that text box value is non negative and an int
+	{
+	var table = "";			//creates header and first few table rows
+	table += '<tr>';
+	table += '<td>' + 'n' + '</td>';
+	table += '<td>' + 'fib(n)' + '</td>';
+	table += '</tr>';
+
+	table += '<tr>';
+	table += '<td>' + 0 + '</td>';
+	table += '<td>' + var1 + '</td>';
+	table += '</tr>';
+
+	table += '<tr>';
+	table += '<td>' + 1 + '</td>';
+	table += '<td>' + var2 + '</td>';
+	table += '</tr>';    
+
+    	for(var i=2; i <= num;i++)	//iterates until desired fib number is reached
+    	{
+        	var3 = var1 + var2;	//computes fibonacci sum
+        	var1 = var2;
+        	var2 = var3;	//increments to the next number in the sequence
+
+        	table += '<tr>';		//creates new row showing the position in sequence and corresponding sum
+		table += '<td>' + i + '</td>';
+		table += '<td>' + var3 + '</td>';
+		table += '</tr>';
+       
+    	}
+	document.getElementById('display').innerHTML += ('<table border=1>' + table + '</table>');
+	}
+
+    else if(num<0)	//if num is negative it displays an error message
+	{
+	document.getElementById('display').innerHTML = "Cannot compute fib of a negative number!";
+	return;
+	}
+
+    else if(isNaN(num))	//is num is a non int or null displays an error message
+	{
+	document.getElementById('display').innerHTML = "Invalid input!";
+	return;
+	}
+   
+}
+</script>
+</body>
+
+</html>

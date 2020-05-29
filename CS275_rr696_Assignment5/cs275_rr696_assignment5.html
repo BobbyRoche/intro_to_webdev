@@ -1,0 +1,177 @@
+<html>
+
+<head>
+				<!-- CSS classes to style the text, text boxes, dropdowns, and buttons -->
+	<style>
+
+
+		div.dropdown
+			{
+			position: fixed;
+			left:850;
+			}
+
+		div.transcript
+			{
+			position: fixed;
+			top: 300;
+			left:850;
+			}
+		div.add
+			{
+			position: fixed;
+			top: 800;
+			left:500;
+			}
+		div.out1
+			{
+			position: fixed;
+			
+			left:650;
+			}
+		div.out2
+			{
+			position: fixed;
+			
+			left:650;
+			}
+
+			
+	</style>
+
+	<script> <!-- Script start -->
+		function table()			<!--Function that creates the individual tables -->
+		{
+			var selection = document.getElementById("tdrop").value;
+			var url = "http://localhost:8080/table?s="+selection;		<!--Makes the URL Based on the Dropdown Selection-->
+			var xhttp = new XMLHttpRequest();				<!-- Ajax call -->
+			xhttp.open("GET", url, true);
+			xhttp.onload = function ()
+			{
+				var data = xhttp.responseText;
+				document.getElementById("table_out").innerHTML = data;	<!-- Prints response to empty div -->		
+	
+			};
+		xhttp.send();
+			
+			
+					
+			
+		}
+
+		function transcript()							<!--Function responsible for getting transcripts-->
+		{
+			var id = document.getElementById("studentID").value;		<!--Gets the student's ID and the term they need the transcript from. (all terms is also an option) -->
+			var term = document.getElementById("term").value;
+			var url = "http://localhost:8080/transcript?s="+id+"&t="+term;  <!--Constructs url with ID and Term passed along to the server -->
+			var xhttp = new XMLHttpRequest();				<!-- Ajax call -->
+			xhttp.open("GET", url, true);
+			xhttp.onload = function ()
+			{
+				var data = xhttp.responseText;
+				document.getElementById("transcript_out").innerHTML = data;	<!-- Prints response to empty div -->		
+			};
+		xhttp.send();
+			
+			
+					
+			
+		}
+
+		function addStudent()							<!--Extra Credit Portion, Student Adder Function -->
+		{
+			var id = document.getElementById("id").value;			<!--Text is gathered and organized, the text boxes are then cleared-->
+			var first = document.getElementById("fname").value;
+			var last = document.getElementById("lname").value;
+			var dob = document.getElementById("dob").value;
+			var major = document.getElementById("major").value;
+
+			document.getElementById("id").value="";
+			document.getElementById("fname").value="";
+			document.getElementById("lname").value="";
+			document.getElementById("dob").value="";
+			document.getElementById("major").value="";
+			var url = "http://localhost:8080/addStudent?i="+id+"&f="+first+"&l="+last+"&d="+dob+ "&m="+major;	<!--Sends the inputs out to the server-->
+			var xhttp = new XMLHttpRequest();									<!-- Ajax call -->
+			xhttp.open("POST", url, true);
+			xhttp.onload = function ()
+			{
+				var data = xhttp.responseText;
+				document.getElementById("confirmation").innerHTML = data;					<!-- Prints response to empty div -->		
+	
+			};
+		xhttp.send();
+			
+			
+					
+			
+		}
+
+		
+
+		
+	
+	</script>
+	<script>
+			window.onload = function auto()			<!--Also extra credit, auto-populates the transcript dropdowns-->
+		{
+			var url = "http://localhost:8080/autopop";	<!--Automaticallly calls the server to retrieve the necessary data for population-->
+			var xhttp = new XMLHttpRequest();		<!-- Ajax call -->
+			xhttp.open("GET", url, true);
+			xhttp.onload = function ()
+			{
+				var data = xhttp.responseText;
+				document.getElementById("transcript_dropdown").innerHTML = data;	<!-- Populates dropdowns dynamically -->		
+	
+			};
+		xhttp.send();
+			
+			
+					
+			
+		}
+	</script>
+
+</head>
+
+<body>
+	<p>
+	<h1 ><font color="blue" style="background-color:yellow;">Drexel Student Database</font></h1>	
+	</p>
+
+	<div class="dropdown" id="drop">	<!-- Table Dropdown html code -->
+		<p>Single Table <br> </p>
+		<select id="tdrop">
+  			<option value="student">STUDENT</option>
+  			<option value="course">COURSE</option>
+			<option value="grades">GRADES</option>
+		</select>
+		<input type="button" value="Submit" onclick = "table()">	<!--Call to the table function-->
+		<div id="table_out" class ="out1"></div>
+	</div>
+	
+
+	<div class = "transcript" id="tdrop">					<!--Div that contains dropdowns when webpage is loaded-->
+		<p><br><br>Student Transcript</p>
+		<div id="transcript_dropdown">
+		</div>
+		<input type="button" value="Submit" onclick = "transcript()">
+		<div id="transcript_out" class="out2"></div>
+		
+	</div>
+	
+
+	<div id="add" class = "add">						<!--Add student input gatherers-->
+		<input type="text" id="id" placeholder="ID (aaa###)">
+		<input type="text" id="fname" placeholder="First Name">
+		<input type="text" id="lname" placeholder="Last Name">
+		<input type="text" id="dob" placeholder="D.O.B. (yyyy-mm-dd)">
+		<input type="text" id="major" placeholder="Major">
+		<input type="button" value="Post New Student" onclick = "addStudent()">
+		<div id="confirmation"></div>
+	
+	</div>
+
+</body>
+
+</html>

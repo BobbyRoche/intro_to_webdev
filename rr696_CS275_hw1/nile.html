@@ -1,0 +1,120 @@
+<html>
+<head>
+	<Title>Lab7 State Machine</Title>
+	<style>
+		.stuff
+			{
+			position: fixed;
+			top:270;
+			left:750;
+			}
+		.name
+			{
+			position: fixed;
+			left: 850;
+			font-family:"Bradley Hand ITC", "Comic Sans MS", sans-serif; 
+			font-size:200%; 
+			font-weight:bold; 
+			 
+			}
+		.instructions
+			{
+			position: fixed;
+			left: 850;
+			top:150 
+			}
+	</style>
+	<script>
+		var state=0;
+		function proc_weight(clicked_id)
+		{	
+
+    			if(state == 0) 
+				{
+				if(clicked_id == "O")
+					{
+					state=1;
+					document.getElementById("light").style="background-color: green";
+					document.getElementById("out").innerHTML="Current State: "+state.toString();
+					}
+				
+        			else
+					{
+					state = 0;
+        				document.getElementById("light").style="background-color: red";
+					document.getElementById("out").innerHTML="Current State: "+state.toString();
+					}
+				}
+    				
+    			else if(state == 1) 
+				{
+				if(clicked_id == "O")
+					{
+					state=0;
+					document.getElementById("light").style="background-color: green";
+					document.getElementById("out").innerHTML="Current State: "+state.toString();
+					}
+				else if(clicked_id == "P")
+					{
+					state=2;
+					document.getElementById("light").style="background-color: green";
+					document.getElementById("out").innerHTML="Current State: "+state.toString();
+					}
+        			else
+					{
+					state = 1;
+        				document.getElementById("light").style="background-color: red";
+					document.getElementById("out").innerHTML="Current State: "+state.toString();
+					}
+    				}
+    			else if(state == 2) 
+				{
+				if(clicked_id == "O")
+					{
+					state=0;
+					document.getElementById("light").style="background-color: red";
+					document.getElementById("out").innerHTML="Current State: "+state.toString();
+					}
+				else if(clicked_id == "W")
+					{
+					state=1;
+					document.getElementById("light").style="background-color: green";
+					document.getElementById("out").innerHTML="Current State: "+state.toString();
+					}
+        			else
+					{
+					state = 1;
+        				document.getElementById("light").style="background-color: red";
+					document.getElementById("out").innerHTML="Current State: "+state.toString();
+					}
+    				}
+		}
+	</script>
+	
+</head>
+<body>
+<div class="name">
+	<h1>Nile</h1>
+</div>
+<div class="instructions">
+	<p>
+	Press O to begin the process.<br>
+	Starting State is 0<br>
+	Key:<br>
+	O: Input Order Barcode<br>
+	P: Input Package Barcode<br>
+	W: Input Package Weight
+	</p>
+</div>
+<div class="stuff">
+<button id="O" onclick="proc_weight(this.id)">O</button>
+<button id="P" onclick="proc_weight(this.id)">P</button>
+<button id="W" onclick="proc_weight(this.id)">W</button>
+<div></div>
+<textarea rows="4" cols="50" id="light"></textarea>
+<div id="out"></div>
+</div>
+
+</body>
+
+</html>

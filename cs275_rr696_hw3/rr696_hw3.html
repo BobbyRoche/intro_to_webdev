@@ -1,0 +1,95 @@
+<html>
+
+<head>
+				<!-- CSS classes to style the text, text box, dropdown, and button -->
+	<style>
+		body {
+    			background: url(https://www.google.com/url?sa=i&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwiz8c7MxvngAhUNUt8KHRwRBOoQjRx6BAgBEAU&url=https%3A%2F%2Fjcpatriot.com%2Fcommunity%2F2017%2F03%2F14%2Fcollege-reviews-drexel-university%2F&psig=AOvVaw2wkmWAa7aBLWXz3tmf6y1A&ust=1552375201974778);
+    			background-repeat:repeat-y;
+			background-opacity: 0.5;
+    			background-position:center center;
+    			background-attachment:scroll;
+    			background-size:100% 100%;
+			color:white;
+		div.in_box
+		{
+			
+			position: fixed;
+			top:160;
+			left:850;
+			
+		}
+		div.dropdown
+		{
+			
+			position: fixed;
+			top:230;
+			left:1027;
+			
+		}
+
+		div.out
+		{
+			font-family: "Georgia", Times, serif;
+			color: blue;
+			position: fixed;
+			top:270;
+			left:750;
+			
+		}
+		
+		
+	</style>
+
+	<script> <!-- Script start -->
+		function func()
+		{
+			var n= document.getElementById("n").value;	<!-- Gets element from text box -->
+			if(isNaN(parseInt(n,10)) || (parseInt(n,10)<0))		<!-- Checks to ensure n is an int, returns an error message if not floats round down -->
+			{					
+				document.getElementById("out").innerHTML = "Error Please Enter a Valid Number!";
+				return;					
+			}
+			var math = document.getElementById("s").value;	<!-- Gets element from dropdown -->
+			var url = "http://localhost:8080/"+math+"?n="+n; <!-- Sets URL for ajax call -->
+			var xhttp = new XMLHttpRequest();		<!-- Ajax call -->
+			xhttp.open("GET", url, true);
+			xhttp.onload = function ()
+			{
+				var data = xhttp.responseText;
+				document.getElementById("out").innerHTML = "<h1>"+data+"</h1>";	<!-- Prints response to empty div -->		
+	
+			};
+		xhttp.send();
+		
+	
+	
+			
+		}
+	</script>
+
+</head>
+
+<body>
+	<div class="in_box">	<!-- div to create n text box, and button -->	
+		<p><b>
+		Please Enter Value For n
+		</b></p>
+		<input type="text" id="n"/>
+		<input type="button" value="Submit" onclick = "func()">
+	</div>
+
+	<div class="dropdown" id="drop">	<!-- Dropdown html code -->
+		<select id="s">
+  			<option value="fac">Factorial</option>
+  			<option value="sum">Summation</option>
+		</select>
+	</div>
+
+	<div class ="out" id="out"></div>	<!-- Empty Display Div -->
+
+	
+
+</body>
+
+</html>

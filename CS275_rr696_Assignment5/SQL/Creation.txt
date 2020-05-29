@@ -1,0 +1,29 @@
+
+Database Creation:
+
+CREATE DATABASE student_info;
+
+Tables:
+
+CREATE TABLE STUDENT (
+STUDENT_ID varchar(6) primary key,
+FIRST_NAME VARCHAR(20),
+LAST_NAME VARCHAR(20),
+Date_Of_Birth date,
+major varchar(25)
+);
+
+CREATE TABLE COURSE (
+COURSE_ID varchar(10) primary key,
+FIRST_NAME VARCHAR(50)
+);
+
+CREATE TABLE GRADES(
+ID int(2) primary key auto_increment NOT NuLL,
+COURSE_ID varchar(10),
+STUDENT_ID varchar(6),
+TERM varchar(10),
+GRADE char(2)
+);
+
+ALTER TABLE GRADES ADD UNIQUE(course_id, student_id, term);

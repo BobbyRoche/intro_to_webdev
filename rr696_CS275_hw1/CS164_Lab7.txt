@@ -1,0 +1,15 @@
+<html>
+<head>
+	
+</head>
+<body>
+
+<button onclick="calc()">O</button>
+<button onclick="calc()">P</button>
+<button onclick="calc()">W</button>
+
+<div id="display"> </div>
+
+</body>
+
+</html>
